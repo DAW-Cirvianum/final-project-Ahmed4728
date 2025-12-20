@@ -17,3 +17,5 @@ class CategoriaFactory extends Factory
         ];
     }
 }
+
+

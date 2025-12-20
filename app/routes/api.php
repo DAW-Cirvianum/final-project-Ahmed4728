@@ -1,20 +1,30 @@
 <?php
-namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// Controllers
+use App\Http\Controllers\Api\CategoriaController;
+use App\Http\Controllers\Api\ProducteController;
+use App\Http\Controllers\Api\ClientController;
+use App\Http\Controllers\Api\ComandaController;
+use App\Http\Controllers\Api\DetallComandaController;
+use App\Http\Controllers\Api\ProveidorController;
+use App\Http\Controllers\Api\AuthController;
 
-Route::get('/hola-mon', function(){
-    return 'Hola Mon!';
+// Ruta de prova inicial
+Route::get('/', function() {
+    return response()->json(['missatge' => 'API funcionant!']);
 });
 
-Route::get('/hola/{name}', function($name){
-    return 'Hola '.$name.'!';
-});
+// Autenticació
+Route::post('register', [AuthController::class, 'store']); // registrar usuari
+// Route::post('login', [AuthController::class, 'login']); // més endavant
 
-Route::get('register',[AuthController::class,'store'])
-->name('register.user');
+// Rutes API CRUD
+Route::apiResource('categories', CategoriaController::class);
+Route::apiResource('productes', ProducteController::class);
+Route::apiResource('clients', ClientController::class);
+Route::apiResource('comandes', ComandaController::class);
+Route::apiResource('detalls_comanda', DetallComandaController::class);
+Route::apiResource('proveidors', ProveidorController::class);

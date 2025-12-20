@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Request;
 
 abstract class Controller
 {
-    //
+    /*
 public function store(Request $request){
     $validator = Validator ::make($request->all(), [
         'name' => ['required', 'string', 'max:255'],
@@ -49,5 +49,5 @@ public function store(Request $request){
         'user' => $user,
     ], 200);
 }
-
+*/
 } 
