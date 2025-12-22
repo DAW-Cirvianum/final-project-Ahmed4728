@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Controllers
@@ -12,19 +11,63 @@ use App\Http\Controllers\Api\DetallComandaController;
 use App\Http\Controllers\Api\ProveidorController;
 use App\Http\Controllers\Api\AuthController;
 
-// Ruta de prova inicial
-Route::get('/', function() {
+// Ruta de prova
+Route::get('/', function () {
     return response()->json(['missatge' => 'API funcionant!']);
 });
 
-// Autenticació
-Route::post('register', [AuthController::class, 'store']); // registrar usuari
-// Route::post('login', [AuthController::class, 'login']); // més endavant
+// --------------------
+// AUTENTICACIÓ
+// --------------------
+Route::post('register', [AuthController::class, 'store']);
+Route::post('login', [AuthController::class, 'login']);
 
-// Rutes API CRUD
-Route::apiResource('categories', CategoriaController::class);
-Route::apiResource('productes', ProducteController::class);
-Route::apiResource('clients', ClientController::class);
-Route::apiResource('comandes', ComandaController::class);
-Route::apiResource('detalls_comanda', DetallComandaController::class);
-Route::apiResource('proveidors', ProveidorController::class);
+Route::middleware('auth:api')->group(function () {
+    Route::get('me', [AuthController::class, 'me']);
+    Route::post('logout', [AuthController::class, 'logout']);
+});
+
+// --------------------
+// RUTES PÚBLIQUES (GET)
+// --------------------
+Route::apiResource('categories', CategoriaController::class)
+    ->only(['index', 'show']);
+
+Route::apiResource('productes', ProducteController::class)
+    ->only(['index', 'show']);
+
+Route::apiResource('clients', ClientController::class)
+    ->only(['index', 'show']);
+
+Route::apiResource('proveidors', ProveidorController::class)
+    ->only(['index', 'show']);
+
+Route::apiResource('comandes', ComandaController::class)
+    ->only(['index', 'show']);
+
+Route::apiResource('detalls_comanda', DetallComandaController::class)
+    ->only(['index', 'show']);
+
+// --------------------
+// RUTES PROTEGIDES (POST, PUT, DELETE)
+// --------------------
+Route::middleware('auth:api')->group(function () {
+
+    Route::apiResource('categories', CategoriaController::class)
+        ->except(['index', 'show']);
+
+    Route::apiResource('productes', ProducteController::class)
+        ->except(['index', 'show']);
+
+    Route::apiResource('clients', ClientController::class)
+        ->except(['index', 'show']);
+
+    Route::apiResource('proveidors', ProveidorController::class)
+        ->except(['index', 'show']);
+
+    Route::apiResource('comandes', ComandaController::class)
+        ->except(['index', 'show']);
+
+    Route::apiResource('detalls_comanda', DetallComandaController::class)
+        ->except(['index', 'show']);
+});
