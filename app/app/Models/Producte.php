@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Producte extends Model
 {
     use HasFactory;
-     protected $table = 'productes';
+
+    protected $table = 'productes';
 
     protected $fillable = [
         'nom',
@@ -21,5 +22,10 @@ class Producte extends Model
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'categoria_id');
+    }
+
+    public function detalls_comanda()
+    {
+        return $this->hasMany(DetallComanda::class, 'producte_id'); 
     }
 }

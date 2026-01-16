@@ -1,0 +1,1120 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Gestió de Magatzem",
+        "description": "Documentació Swagger del projecte final",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "Servidor local"
+        }
+    ],
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Obtenir token d'autenticació",
+                "operationId": "222b2625838e3c57e017987f73598fda",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Autenticació correcta"
+                    },
+                    "401": {
+                        "description": "Credencials incorrectes"
+                    }
+                }
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Llista totes les categories",
+                "operationId": "4760ddee2d1ba78ae3c5fddde81647e6",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Crear una nueva categoría",
+                "operationId": "b6dcff41b2f44bddd36d035bfd77feb7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "descripcio": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Categoria creada"
+                    },
+                    "422": {
+                        "description": "Validación fallida"
+                    }
+                }
+            }
+        },
+        "/api/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Obtener una categoría por ID",
+                "operationId": "17e38a361917ddade264058f5feef827",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoria encontrada"
+                    },
+                    "404": {
+                        "description": "Categoria no encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Actualizar una categoría",
+                "operationId": "d0aa39bee3ea48d89778952dc0a3ad6e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "descripcio": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoria actualizada"
+                    },
+                    "404": {
+                        "description": "Categoria no encontrada"
+                    },
+                    "422": {
+                        "description": "Validación fallida"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Eliminar una categoría",
+                "operationId": "257fdb3bfdb4c031bc224ce7154f7f3c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoria eliminada"
+                    },
+                    "404": {
+                        "description": "Categoria no encontrada"
+                    }
+                }
+            }
+        },
+        "/api/clients": {
+            "get": {
+                "tags": [
+                    "Clients"
+                ],
+                "summary": "Llistar tots els clients",
+                "operationId": "413c12320d4121431e38339f45ecaa7c",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Clients"
+                ],
+                "summary": "Crear un client",
+                "operationId": "f909473745c1a1d469e0c5a5b54682b8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 150
+                                    },
+                                    "telefon": {
+                                        "type": "string",
+                                        "maxLength": 20
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Client creat"
+                    },
+                    "422": {
+                        "description": "Validació fallida"
+                    }
+                }
+            }
+        },
+        "/api/clients/{id}": {
+            "get": {
+                "tags": [
+                    "Clients"
+                ],
+                "summary": "Obtenir un client per ID",
+                "operationId": "feff36e8c89b21277ad216c29ca9ca4b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Client trobat"
+                    },
+                    "404": {
+                        "description": "Client no trobat"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Clients"
+                ],
+                "summary": "Actualitzar un client",
+                "operationId": "4cdaf0a748c704e6f11a98f7bb6eb5a4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 150
+                                    },
+                                    "telefon": {
+                                        "type": "string",
+                                        "maxLength": 20
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Client actualitzat"
+                    },
+                    "404": {
+                        "description": "Client no trobat"
+                    },
+                    "422": {
+                        "description": "Validació fallida"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Clients"
+                ],
+                "summary": "Eliminar un client",
+                "operationId": "5b6d3bdaf49885db3b7b4b23aed2156b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Client eliminat"
+                    },
+                    "404": {
+                        "description": "Client no trobat"
+                    }
+                }
+            }
+        },
+        "/api/comandes": {
+            "get": {
+                "tags": [
+                    "Comandes"
+                ],
+                "summary": "Llistar totes les comandes",
+                "operationId": "ee27b7739d5decf364eab47f208e19ef",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Comandes"
+                ],
+                "summary": "Crear una comanda",
+                "operationId": "9d18cfe6ba11803eaf0b180f6c034dc8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "tipus": {
+                                        "description": "purchase|sale",
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "client_id": {
+                                        "type": "integer"
+                                    },
+                                    "proveidor_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Comanda creada"
+                    },
+                    "422": {
+                        "description": "Validació fallida"
+                    }
+                }
+            }
+        },
+        "/api/comandes/{id}": {
+            "get": {
+                "tags": [
+                    "Comandes"
+                ],
+                "summary": "Obtenir una comanda per ID",
+                "operationId": "5ded15c82f5939c2d13c592e4ecb00dc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Comanda trobada"
+                    },
+                    "404": {
+                        "description": "Comanda no trobada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Comandes"
+                ],
+                "summary": "Actualitzar una comanda",
+                "operationId": "4c2cdd59ded1b04cb3e0a7c1957c94d7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "tipus": {
+                                        "description": "purchase|sale",
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "client_id": {
+                                        "type": "integer"
+                                    },
+                                    "proveidor_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Comanda actualitzada"
+                    },
+                    "404": {
+                        "description": "Comanda no trobada"
+                    },
+                    "422": {
+                        "description": "Validació fallida"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Comandes"
+                ],
+                "summary": "Eliminar una comanda",
+                "operationId": "da2069ecaf785547fa0a45394f53ed1b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Comanda eliminada"
+                    },
+                    "404": {
+                        "description": "Comanda no trobada"
+                    }
+                }
+            }
+        },
+        "/api/comandes/entre-dates": {
+            "get": {
+                "tags": [
+                    "Comandes"
+                ],
+                "summary": "Obté les comandes entre dues dates",
+                "description": "Retorna les comandes entre dues dates, incloent els detalls de la comanda i els productes",
+                "operationId": "1c3701cfdbb6ed55e8b369a94aa67b03",
+                "parameters": [
+                    {
+                        "name": "inici",
+                        "in": "query",
+                        "description": "Data inicial (YYYY-MM-DD)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "fi",
+                        "in": "query",
+                        "description": "Data final (YYYY-MM-DD)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Llista de comandes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "exit": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "dades": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "data": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "tipus": {
+                                                        "type": "string"
+                                                    },
+                                                    "detalls_comanda": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "quantitat": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "producte": {
+                                                                    "properties": {
+                                                                        "nom": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "referencia": {
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/detalls-comanda": {
+            "get": {
+                "tags": [
+                    "DetallsComanda"
+                ],
+                "summary": "Llistar tots els detalls de comanda",
+                "operationId": "f9399aff224898893e0d4bc3df212ac8",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "DetallsComanda"
+                ],
+                "summary": "Crear un detall de comanda",
+                "operationId": "5e8307accfe473e29318830c21973ef8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "comanda_id": {
+                                        "type": "integer"
+                                    },
+                                    "producte_id": {
+                                        "type": "integer"
+                                    },
+                                    "quantitat": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Detall de comanda creat"
+                    },
+                    "422": {
+                        "description": "Validació fallida"
+                    }
+                }
+            }
+        },
+        "/api/detalls-comanda/{id}": {
+            "get": {
+                "tags": [
+                    "DetallsComanda"
+                ],
+                "summary": "Obtenir un detall de comanda per ID",
+                "operationId": "8b0046e2b5f6edf64048bddbfceaf9fe",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detall trobat"
+                    },
+                    "404": {
+                        "description": "Detall no trobat"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "DetallsComanda"
+                ],
+                "summary": "Actualitzar un detall de comanda",
+                "operationId": "bfd0f8145443c45dfef5b4d081e50445",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "comanda_id": {
+                                        "type": "integer"
+                                    },
+                                    "producte_id": {
+                                        "type": "integer"
+                                    },
+                                    "quantitat": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Detall actualitzat"
+                    },
+                    "404": {
+                        "description": "Detall no trobat"
+                    },
+                    "422": {
+                        "description": "Validació fallida"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "DetallsComanda"
+                ],
+                "summary": "Eliminar un detall de comanda",
+                "operationId": "dd879f0a16223c4d86826ad579910d73",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detall eliminat"
+                    },
+                    "404": {
+                        "description": "Detall no trobat"
+                    }
+                }
+            }
+        },
+        "/api/productes": {
+            "get": {
+                "tags": [
+                    "Productes"
+                ],
+                "summary": "Llistar tots els productes",
+                "operationId": "e8ab39ee27e015af7baca5a9e6bb653c",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Productes"
+                ],
+                "summary": "Crear un producte",
+                "operationId": "734ab08ee920bc83a59c6287856c2ba6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "referencia": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "descripcio": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "quantitat": {
+                                        "type": "integer"
+                                    },
+                                    "categoria_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Producte creat"
+                    },
+                    "422": {
+                        "description": "Validació fallida"
+                    }
+                }
+            }
+        },
+        "/api/productes/{id}": {
+            "get": {
+                "tags": [
+                    "Productes"
+                ],
+                "summary": "Obtenir un producte per ID",
+                "operationId": "f736d1d164c13ea102af7e64182ebe3c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Producte trobat"
+                    },
+                    "404": {
+                        "description": "Producte no trobat"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Productes"
+                ],
+                "summary": "Actualitzar un producte",
+                "operationId": "dd3af72f5853c41ff299519e322e6c1c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "referencia": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "descripcio": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "quantitat": {
+                                        "type": "integer"
+                                    },
+                                    "categoria_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Producte actualitzat"
+                    },
+                    "404": {
+                        "description": "Producte no trobat"
+                    },
+                    "422": {
+                        "description": "Validació fallida"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Productes"
+                ],
+                "summary": "Eliminar un producte",
+                "operationId": "4b34a3283287787c634dcdbc73a6f33d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Producte eliminat"
+                    },
+                    "404": {
+                        "description": "Producte no trobat"
+                    }
+                }
+            }
+        },
+        "/api/proveidors": {
+            "get": {
+                "tags": [
+                    "Proveidors"
+                ],
+                "summary": "Llistar tots els proveidors",
+                "operationId": "f262364cf46aee024f7172e9c5ba536f",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Proveidors"
+                ],
+                "summary": "Crear un proveidor",
+                "operationId": "d564bab79c66a2a5de0291b35e50136e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 150
+                                    },
+                                    "telefon": {
+                                        "type": "string",
+                                        "maxLength": 20
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Proveidor creat"
+                    },
+                    "422": {
+                        "description": "Validació fallida"
+                    }
+                }
+            }
+        },
+        "/api/proveidors/{id}": {
+            "get": {
+                "tags": [
+                    "Proveidors"
+                ],
+                "summary": "Obtenir un proveidor per ID",
+                "operationId": "be996cf1b6c5d4963a29313071f6f128",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Proveidor trobat"
+                    },
+                    "404": {
+                        "description": "Proveidor no trobat"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Proveidors"
+                ],
+                "summary": "Actualitzar un proveidor",
+                "operationId": "13c6a769925dc6535c977d144cd7ef40",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 150
+                                    },
+                                    "telefon": {
+                                        "type": "string",
+                                        "maxLength": 20
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Proveidor actualitzat"
+                    },
+                    "404": {
+                        "description": "Proveidor no trobat"
+                    },
+                    "422": {
+                        "description": "Validació fallida"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Proveidors"
+                ],
+                "summary": "Eliminar un proveidor",
+                "operationId": "6b0387d9b1a962360e1117623c007791",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Proveidor eliminat"
+                    },
+                    "404": {
+                        "description": "Proveidor no trobat"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Categories",
+            "description": "Categories"
+        },
+        {
+            "name": "Clients",
+            "description": "Clients"
+        },
+        {
+            "name": "Comandes",
+            "description": "Comandes"
+        },
+        {
+            "name": "DetallsComanda",
+            "description": "DetallsComanda"
+        },
+        {
+            "name": "Productes",
+            "description": "Productes"
+        },
+        {
+            "name": "Proveidors",
+            "description": "Proveidors"
+        }
+    ]
+}

@@ -25,6 +25,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -50,7 +51,6 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 
-        // JWT
     public function getJWTIdentifier()
     {
         return $this->getKey();

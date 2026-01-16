@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class DetallComanda extends Model
 {
     use HasFactory;
+
     protected $table = 'detalls_comanda';
 
     protected $fillable = [
         'comanda_id',
         'producte_id',
-        'quantitat'
+        'quantitat',
     ];
+
 
     public function comanda()
     {

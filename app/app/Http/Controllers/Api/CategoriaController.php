@@ -6,27 +6,65 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 
-
 class CategoriaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/categories",
+     *     summary="Llista totes les categories",
+     *     tags={"Categories"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Llista de categories obtinguda correctament"
+     *     )
+     * )
      */
     public function index()
     {
         $categories = Categoria::all();
+
         return response()->json([
-        'success' => true,
-        'data' => $categories
-    ]);
+            'success' => true,
+            'data' => $categories
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/categories",
+     *     summary="Crea una nova categoria",
+     *     tags={"Categories"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="nom",
+     *                 type="string",
+     *                 maxLength=100,
+     *                 description="Nom de la categoria"
+     *             ),
+     *             @OA\Property(
+     *                 property="descripcio",
+     *                 type="string",
+     *                 maxLength=255,
+     *                 description="Descripció de la categoria"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Categoria creada correctament"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Error de validació"
+     *     )
+     * )
      */
     public function store(Request $request)
     {
-            $request->validate([
+        $request->validate([
             'nom' => 'required|string|max:100',
             'descripcio' => 'nullable|string|max:255'
         ]);
@@ -44,11 +82,29 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/categories/{id}",
+     *     summary="Obté una categoria pel seu identificador",
+     *     tags={"Categories"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Identificador de la categoria",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Categoria trobada"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Categoria no trobada"
+     *     )
+     * )
      */
     public function show(string $id)
     {
-            
         $categoria = Categoria::find($id);
 
         if (!$categoria) {
@@ -64,11 +120,50 @@ class CategoriaController extends Controller
             'dades' => $categoria,
             'missatge' => 'Categoria trobada'
         ]);
-        
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/categories/{id}",
+     *     summary="Actualitza una categoria existent",
+     *     tags={"Categories"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Identificador de la categoria",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="nom",
+     *                 type="string",
+     *                 maxLength=100,
+     *                 description="Nom de la categoria"
+     *             ),
+     *             @OA\Property(
+     *                 property="descripcio",
+     *                 type="string",
+     *                 maxLength=255,
+     *                 description="Descripció de la categoria"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Categoria actualitzada correctament"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Categoria no trobada"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Error de validació"
+     *     )
+     * )
      */
     public function update(Request $request, string $id)
     {
@@ -97,7 +192,26 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/categories/{id}",
+     *     summary="Elimina una categoria",
+     *     tags={"Categories"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Identificador de la categoria",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Categoria eliminada correctament"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Categoria no trobada"
+     *     )
+     * )
      */
     public function destroy(string $id)
     {

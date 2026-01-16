@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Controllers
 use App\Http\Controllers\Api\CategoriaController;
 use App\Http\Controllers\Api\ProducteController;
 use App\Http\Controllers\Api\ClientController;
@@ -10,15 +9,10 @@ use App\Http\Controllers\Api\ComandaController;
 use App\Http\Controllers\Api\DetallComandaController;
 use App\Http\Controllers\Api\ProveidorController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PasswordResetController;
 
-// Ruta de prova
-Route::get('/', function () {
-    return response()->json(['missatge' => 'API funcionant!']);
-});
 
-// --------------------
-// AUTENTICACIÓ
-// --------------------
+
 Route::post('register', [AuthController::class, 'store']);
 Route::post('login', [AuthController::class, 'login']);
 
@@ -27,9 +21,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
-// --------------------
-// RUTES PÚBLIQUES (GET)
-// --------------------
 Route::apiResource('categories', CategoriaController::class)
     ->only(['index', 'show']);
 
@@ -47,10 +38,11 @@ Route::apiResource('comandes', ComandaController::class)
 
 Route::apiResource('detalls_comanda', DetallComandaController::class)
     ->only(['index', 'show']);
+Route::get(
+    'comandes/entre-dates',
+    [ComandaController::class, 'entreDates']
+);
 
-// --------------------
-// RUTES PROTEGIDES (POST, PUT, DELETE)
-// --------------------
 Route::middleware('auth:api')->group(function () {
 
     Route::apiResource('categories', CategoriaController::class)
@@ -71,3 +63,6 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('detalls_comanda', DetallComandaController::class)
         ->except(['index', 'show']);
 });
+
+Route::post('forgot-password', [PasswordResetController::class, 'sendResetLinkEmail']);
+Route::post('reset-password', [PasswordResetController::class, 'reset']);
