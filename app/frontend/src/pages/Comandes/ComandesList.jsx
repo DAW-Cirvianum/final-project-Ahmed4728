@@ -415,7 +415,7 @@ const viewProducts = async (id) => {
           </Button>
         </div>
 
-        {/* FOOTER */}
+        {}
         <div className="modal-footer">
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cancel·lar
