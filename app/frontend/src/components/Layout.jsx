@@ -21,7 +21,7 @@ export default function Layout() {
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
-          <NavLink className="navbar-brand" to="/products">MyApp</NavLink>
+          <NavLink className="navbar-brand" to="/products">Gestió d'inventari</NavLink>
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
@@ -42,7 +42,7 @@ export default function Layout() {
             </ul>
             <div className="d-flex">
               {token ? (
-                <button className="btn btn-outline-light" onClick={handleLogout}>Tencar sessio</button>
+                <button className="btn btn-outline-light" onClick={handleLogout}>Tancar sessió</button>
               ) : (
                 <NavLink className="btn btn-outline-light" to="/login">Entrar</NavLink>
               )}

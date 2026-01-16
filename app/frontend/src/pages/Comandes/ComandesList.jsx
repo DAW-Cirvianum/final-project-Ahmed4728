@@ -109,7 +109,6 @@ function ComandesList() {
 
 
 
-  /* ---------------- SAVE ---------------- */
 
   const handleSave = async () => {
     if (!token) return alert("No autenticat");
@@ -278,7 +277,7 @@ const viewProducts = async (id) => {
               <td>{new Date(o.data).toLocaleDateString()}</td>
               <td className="d-flex gap-2">
                 <Button size="sm" variant="primary" onClick={() => viewProducts(o.id)}>
-                  Ver productos
+                  Veure productes
                 </Button>
                 <Button size="sm" variant="danger" onClick={() => handleDelete(o.id)}>
                   Eliminar

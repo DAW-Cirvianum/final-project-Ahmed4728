@@ -109,7 +109,7 @@ function CategoriesList() {
         body: JSON.stringify(editingCategory),
       });
 
-      if (res.status === 401) throw new Error("No autorizado");
+      if (res.status === 401) throw new Error("No autoritzat");
 
       if (!res.ok) throw new Error("Error guardant categoria");
 
